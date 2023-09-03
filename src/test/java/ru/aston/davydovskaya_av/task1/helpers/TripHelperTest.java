@@ -7,11 +7,14 @@ import ru.aston.davydovskaya_av.task1.entities.trips.impl.AviaTrip;
 import ru.aston.davydovskaya_av.task1.entities.trips.impl.BusTrip;
 import ru.aston.davydovskaya_av.task1.enums.AviaType;
 import ru.aston.davydovskaya_av.task1.enums.BusType;
+import ru.aston.davydovskaya_av.task1.exceptions.DiscountException;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TripHelperTest {
 
@@ -46,6 +49,26 @@ public class TripHelperTest {
     @Test
     void getSumOfAllTripsWithoutDiscountTest() {
         assertEquals(tripUtils.getSumOfAllTripsWithoutDiscount(), 6200);
+    }
+
+    @Test
+    void getSumOfAviaTripsWithDiscountThrowsDiscountExceptionTest() {
+        AviaTrip aviaTripThird = AviaTrip.builder()
+                .sum(BigDecimal.valueOf(900))
+                .build();
+
+        TripHelper tripHelper = new TripHelper(Collections.singletonList(aviaTripThird));
+        assertThrows(DiscountException.class, tripHelper::getSumOfAllTripsWithDiscount);
+    }
+
+    @Test
+    void getSumOfBusTripsWithDiscountThrowsDiscountExceptionTest() {
+        BusTrip aviaTripThird = BusTrip.builder()
+                .sum(BigDecimal.valueOf(700))
+                .build();
+
+        TripHelper tripHelper = new TripHelper(Collections.singletonList(aviaTripThird));
+        assertThrows(DiscountException.class, tripHelper::getSumOfAllTripsWithDiscount);
     }
 
     @Test
