@@ -1,0 +1,12 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:8.0.31
+    environment:
+      MYSQL_DB: "task4"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/var/lib/mysql
